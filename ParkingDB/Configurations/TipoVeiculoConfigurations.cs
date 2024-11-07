@@ -9,7 +9,10 @@ namespace ParkingDB.Configurations
         public void Configure(EntityTypeBuilder<TipoVeiculo> builder)
         {
             builder.HasKey(tv => tv.IDTipoVeiculo);
-            builder.Property(tv => tv.Descricao).IsRequired().HasMaxLength(100);
+
+            builder.Property(tv => tv.Descricao)
+                   .IsRequired()
+                   .HasMaxLength(20);
         }
     }
 }

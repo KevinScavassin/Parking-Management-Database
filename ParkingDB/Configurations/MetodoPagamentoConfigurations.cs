@@ -9,7 +9,10 @@ namespace ParkingDB.Configurations
         public void Configure(EntityTypeBuilder<MetodoPagamento> builder)
         {
             builder.HasKey(mp => mp.IDMetodoPagamento);
-            builder.Property(mp => mp.Descricao).IsRequired().HasMaxLength(100);
+
+            builder.Property(mp => mp.Descricao)
+                   .IsRequired()
+                   .HasMaxLength(30);
         }
     }
 }

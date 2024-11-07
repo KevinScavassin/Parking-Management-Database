@@ -10,9 +10,6 @@ namespace ParkingDB.Configurations
         {
             builder.HasKey(es => es.IDEntradaSaida);
 
-            builder.Property(es => es.DataHoraEntrada).IsRequired();
-            builder.Property(es => es.DataHoraSaida).IsRequired(false);
-
             builder.HasOne<Vaga>()
                    .WithMany(v => v.EntradaSaidas)
                    .HasForeignKey(es => es.IDVaga)
@@ -21,7 +18,14 @@ namespace ParkingDB.Configurations
             builder.HasOne<Veiculo>()
                    .WithMany(v => v.EntradaSaidas)
                    .HasForeignKey(es => es.IDVeiculo)
-                   .OnDelete(DeleteBehavior.Restrict); 
+                   .OnDelete(DeleteBehavior.Restrict);
+            
+            builder.Property(es => es.DataHoraEntrada)
+                   .IsRequired();
+
+            builder.Property(es => es.DataHoraSaida)
+                   .IsRequired(false);
+
         }
     }
 }
