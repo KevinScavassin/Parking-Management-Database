@@ -29,7 +29,7 @@ namespace ParkingDB.Configurations
             builder.Property(c => c.DataHoraAlteracao)//Colocar GetDate funciona no update da tabela?
                    .IsRequired(); 
 
-            builder.Property(c => c.DataHoraAlteracao)
+            builder.Property(c => c.UsuarioAlteracao)
                    .HasMaxLength(80); 
 
             builder.Property(c => c.IsActive)

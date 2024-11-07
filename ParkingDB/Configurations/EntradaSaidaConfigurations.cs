@@ -37,7 +37,7 @@ namespace ParkingDB.Configurations
             builder.Property(es => es.DataHoraAlteracao)
                    .IsRequired();
 
-            builder.Property(es => es.DataHoraAlteracao)
+            builder.Property(es => es.UsuarioAlteracao)
                    .HasMaxLength(80);
 
             builder.Property(es => es.IsActive)
