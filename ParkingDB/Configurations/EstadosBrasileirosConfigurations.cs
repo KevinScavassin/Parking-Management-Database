@@ -8,8 +8,29 @@ namespace ParkingDB.Configurations
     {
         public void Configure(EntityTypeBuilder<EstadosBrasileiros> builder)
         {
-            builder.HasKey(e => e.UF);
-            builder.Property(e => e.Nome).IsRequired().HasMaxLength(50);
+            builder.HasKey(eb => eb.UF);
+
+            builder.Property(eb => eb.Nome)
+                   .IsRequired()
+                   .HasMaxLength(50);
+
+            builder.Property(eb => eb.DataHoraInclusão)
+                   .IsRequired()
+                   .HasDefaultValueSql("GETDATE()");
+
+            builder.Property(eb => eb.UsuarioInclusao)
+                   .IsRequired()
+                   .HasMaxLength(80);
+
+            builder.Property(eb => eb.DataHoraAlteracao)
+                   .IsRequired();
+
+            builder.Property(eb => eb.DataHoraAlteracao)
+                   .HasMaxLength(80);
+
+            builder.Property(eb => eb.IsActive)
+                   .IsRequired()
+                   .HasDefaultValue(true);
         }
     }
 }

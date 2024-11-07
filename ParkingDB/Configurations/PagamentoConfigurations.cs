@@ -9,8 +9,6 @@ namespace ParkingDB.Configurations
         public void Configure(EntityTypeBuilder<Pagamento> builder)
         {
             builder.HasKey(p => p.IDPagamento);
-            builder.Property(p => p.Valor).IsRequired()
-                   .HasColumnType("decimal(6,2)");
 
             builder.HasOne<Cliente>()
                    .WithMany(c => c.Pagamentos)
@@ -25,6 +23,28 @@ namespace ParkingDB.Configurations
             builder.HasOne(p => p.EntradaSaida)
                    .WithMany()
                    .HasForeignKey(p => p.IDEntradaSaida);
+
+            builder.Property(p => p.Valor)
+                   .IsRequired()
+                   .HasColumnType("decimal(6,2)");
+
+            builder.Property(p => p.DataHoraInclusão)
+                   .IsRequired()
+                   .HasDefaultValueSql("GETDATE()");
+
+            builder.Property(p => p.UsuarioInclusao)
+                   .IsRequired()
+                   .HasMaxLength(80);
+
+            builder.Property(p => p.DataHoraAlteracao)
+                   .IsRequired();
+
+            builder.Property(p => p.DataHoraAlteracao)
+                   .HasMaxLength(80);
+
+            builder.Property(p => p.IsActive)
+                   .IsRequired()
+                   .HasDefaultValue(true);
         }
     }
 }
