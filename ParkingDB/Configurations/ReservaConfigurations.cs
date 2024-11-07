@@ -10,6 +10,8 @@ namespace ParkingDB.Configurations
         {
             builder.HasKey(r => r.IDReserva);
 
+            builder.Property(r => r.DataHoraReserva).IsRequired();
+
             builder.HasOne<Cliente>()
                    .WithMany(c => c.Reservas)
                    .HasForeignKey(r => r.IDCliente)
@@ -25,7 +27,6 @@ namespace ParkingDB.Configurations
                    .HasForeignKey(r => r.IDStatusReserva)
                    .OnDelete(DeleteBehavior.Restrict);
 
-            builder.Property(r => r.DataHoraReserva).IsRequired();
 
         }
     }

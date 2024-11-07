@@ -9,10 +9,7 @@ namespace ParkingDB.Configurations
         public void Configure(EntityTypeBuilder<EstadosBrasileiros> builder)
         {
             builder.HasKey(e => e.UF);
-
-            builder.Property(e => e.Nome)
-                   .IsRequired()
-                   .HasMaxLength(20);
+            builder.Property(e => e.Nome).IsRequired().HasMaxLength(50);
         }
     }
 }

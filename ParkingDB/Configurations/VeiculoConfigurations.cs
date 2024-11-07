@@ -15,23 +15,14 @@ namespace ParkingDB.Configurations
                    .HasForeignKey(v => v.IDCliente)
                    .OnDelete(DeleteBehavior.Restrict);
 
+            builder.Property(v => v.Placa).IsRequired().HasMaxLength(10);
+            builder.Property(v => v.Cor).IsRequired().HasMaxLength(50);
+            builder.Property(v => v.Modelo).IsRequired().HasMaxLength(100);
+
             builder.HasOne<TipoVeiculo>()
                    .WithMany(tp => tp.Veiculos)
                    .HasForeignKey(v => v.IDTipoVeiculo)
                    .OnDelete(DeleteBehavior.Restrict);
-
-            builder.Property(v => v.Placa)
-                   .IsRequired()
-                   .HasMaxLength(10);
-
-            builder.Property(v => v.Cor)
-                   .IsRequired()
-                   .HasMaxLength(30);
-
-            builder.Property(v => v.Modelo)
-                   .IsRequired()
-                   .HasMaxLength(4);
-
         }
     }
 }

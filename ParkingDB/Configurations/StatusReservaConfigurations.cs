@@ -9,10 +9,7 @@ namespace ParkingDB.Configurations
         public void Configure(EntityTypeBuilder<StatusReserva> builder)
         {
             builder.HasKey(sr => sr.IDStatusReserva);
-
-            builder.Property(sr => sr.Descricao)
-                   .IsRequired()
-                   .HasMaxLength(20);
+            builder.Property(sr => sr.Descricao).IsRequired().HasMaxLength(100);
         }
     }
 }
