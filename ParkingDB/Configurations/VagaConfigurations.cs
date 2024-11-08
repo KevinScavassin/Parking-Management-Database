@@ -24,7 +24,25 @@ namespace ParkingDB.Configurations
                    .WithMany(sv => sv.Vagas)
                    .HasForeignKey(v => v.IDStatusVaga)
                    .OnDelete(DeleteBehavior.Restrict);
-                   
+
+            builder.Property(v => v.DataHoraInclusão)
+                   .IsRequired()
+                   .HasDefaultValueSql("GETDATE()");
+
+            builder.Property(v => v.UsuarioInclusao)
+                   .IsRequired()
+                   .HasMaxLength(80);
+
+            builder.Property(v => v.DataHoraAlteracao)
+                   .IsRequired();
+
+            builder.Property(v => v.UsuarioAlteracao)
+                   .HasMaxLength(80);
+
+            builder.Property(v => v.IsActive)
+                   .IsRequired()
+                   .HasDefaultValue(true);
+
         }
     }
 }
