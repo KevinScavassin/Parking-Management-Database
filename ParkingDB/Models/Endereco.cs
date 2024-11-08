@@ -9,5 +9,10 @@
         public char UF { get; set; } 
         public string CEP { get; set; }
         public string Complemento { get; set; }
+        public DateTime DataHoraInclusão { get; set; }
+        public string UsuarioInclusao { get; set; }
+        public DateTime DataHoraAlteracao { get; set; }
+        public string UsuarioAlteracao { get; set; }
+        public Boolean IsActive { get; set; }
     }
 }

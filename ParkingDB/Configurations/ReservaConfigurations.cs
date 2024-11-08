@@ -10,8 +10,6 @@ namespace ParkingDB.Configurations
         {
             builder.HasKey(r => r.IDReserva);
 
-            builder.Property(r => r.DataHoraReserva).IsRequired();
-
             builder.HasOne<Cliente>()
                    .WithMany(c => c.Reservas)
                    .HasForeignKey(r => r.IDCliente)
@@ -26,6 +24,28 @@ namespace ParkingDB.Configurations
                    .WithMany(sr => sr.Reservas)
                    .HasForeignKey(r => r.IDStatusReserva)
                    .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Property(r => r.DataHoraReserva)
+                   .IsRequired();
+
+            builder.Property(r => r.DataHoraInclusão)
+                   .IsRequired()
+                   .HasDefaultValueSql("GETDATE()");
+
+            builder.Property(r => r.UsuarioInclusao)
+                   .IsRequired()
+                   .HasMaxLength(80);
+
+            builder.Property(r => r.DataHoraAlteracao)
+                   .IsRequired();
+
+            builder.Property(r => r.UsuarioAlteracao)
+                   .HasMaxLength(80);
+
+            builder.Property(r => r.IsActive)
+                   .IsRequired()
+                   .HasDefaultValue(true);
+
 
 
         }
