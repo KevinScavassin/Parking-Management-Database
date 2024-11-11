@@ -1,4 +1,4 @@
-﻿using ParkingDB.Models;
+﻿using ParkingDB.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -14,7 +14,7 @@ namespace ParkingDB.Configurations
                    .IsRequired()
                    .HasMaxLength(100);
 
-            builder.Property(sv => sv.DataHoraInclusão)
+            builder.Property(sv => sv.DataHoraInclusao)
                    .IsRequired()
                    .HasDefaultValueSql("GETDATE()");
 

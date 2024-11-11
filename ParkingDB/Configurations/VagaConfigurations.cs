@@ -1,4 +1,4 @@
-﻿using ParkingDB.Models;
+﻿using ParkingDB.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.AspNetCore.Identity;
@@ -25,7 +25,7 @@ namespace ParkingDB.Configurations
                    .HasForeignKey(v => v.IDStatusVaga)
                    .OnDelete(DeleteBehavior.Restrict);
 
-            builder.Property(v => v.DataHoraInclusão)
+            builder.Property(v => v.DataHoraInclusao)
                    .IsRequired()
                    .HasDefaultValueSql("GETDATE()");
 
