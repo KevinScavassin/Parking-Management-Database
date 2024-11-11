@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ParkingDB.Models;
+using ParkingDB.Entities;
 using ParkingDB.Configurations;
 
 namespace ParkingDB.Data
