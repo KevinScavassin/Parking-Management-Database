@@ -1,29 +1,27 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ParkingDB.Data;
+using ParkingDB.Seeders;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<ParkingDBContext>(options =>
-    options.UseSqlServer(@"Server=ITLNB089\SQLEXPRESS;Database=ParkingDB;Trusted_Connection=True;TrustServerCertificate=True;"));
+    options.UseSqlServer(@"Server=ITLNB089\SQLEXPRESS;Database=ParkingDB;User ID=sa;Password=sa;TrustServerCertificate=True;"));
 
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
+using (var scope = app.Services.CreateScope())
 {
-    app.UseDeveloperExceptionPage(); 
+    var services = scope.ServiceProvider;
+    try
+    {
+        var context = services.GetRequiredService<ParkingDBContext>();
+        DatabaseData.Initialize(context); 
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine("Erro ao inicializar o banco de dados: " + ex.Message);
+    }
 }
-else
-{
-    app.UseExceptionHandler("/Home/Error"); 
-    app.UseHsts();
-}
 
-app.UseHttpsRedirection();
-app.UseStaticFiles();
-
-app.UseRouting();
-
-app.UseAuthorization();
-
-app.Run(); 
+app.Run();

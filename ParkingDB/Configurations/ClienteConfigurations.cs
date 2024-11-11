@@ -1,4 +1,4 @@
-﻿using ParkingDB.Models;
+﻿using ParkingDB.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -18,7 +18,7 @@ namespace ParkingDB.Configurations
                    .IsRequired(false)
                    .HasMaxLength(14);
 
-            builder.Property(c => c.DataHoraInclusão)
+            builder.Property(c => c.DataHoraInclusao)
                    .IsRequired()
                    .HasDefaultValueSql("GETDATE()"); 
 
@@ -26,7 +26,7 @@ namespace ParkingDB.Configurations
                    .IsRequired()
                    .HasMaxLength(80); 
 
-            builder.Property(c => c.DataHoraAlteracao)//Colocar GetDate funciona no update da tabela?
+            builder.Property(c => c.DataHoraAlteracao)
                    .IsRequired(); 
 
             builder.Property(c => c.UsuarioAlteracao)
