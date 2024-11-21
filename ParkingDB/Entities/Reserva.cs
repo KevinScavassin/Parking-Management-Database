@@ -2,10 +2,9 @@
 {
     public class Reserva:Entity<int>
     {
-        public int IDReserva { get; set; }
-        public int IDCliente { get; set; }
-        public int IDVaga { get; set; }
-        public int IDStatusReserva { get; set; }
         public DateTime DataHoraReserva { get; set; }
+        public virtual Cliente Cliente { get; set; }
+        public virtual Vaga Vaga { get; set; }
+        public virtual StatusReserva StatusReserva { get; set; }
     }
 }

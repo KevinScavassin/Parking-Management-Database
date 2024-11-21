@@ -8,11 +8,16 @@ namespace ParkingDB.Configurations
     {
         public void Configure(EntityTypeBuilder<Telefone> builder)
         {
-            builder.HasKey(t => t.IDTelefone);
+            builder.HasKey(t  => t.Id)
+                   .IsClustered(true);
 
-            builder.HasOne<Cliente>()
+            builder.Property(t => t.Id)
+                   .IsRequired()
+                   .ValueGeneratedOnAdd();
+
+            builder.HasOne(t => t.Cliente) 
                    .WithMany(c => c.Telefones)
-                   .HasForeignKey(t => t.IDCliente)
+                   .HasForeignKey("IdCliente") 
                    .OnDelete(DeleteBehavior.Restrict);
 
             builder.Property(t => t.DDD)

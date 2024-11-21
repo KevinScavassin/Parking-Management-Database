@@ -8,21 +8,26 @@ namespace ParkingDB.Configurations
     {
         public void Configure(EntityTypeBuilder<Reserva> builder)
         {
-            builder.HasKey(r => r.IDReserva);
+            builder.HasKey(r => r.Id)
+                   .IsClustered(true);
 
-            builder.HasOne<Cliente>()
+            builder.Property(r => r.Id)
+                   .IsRequired()
+                   .ValueGeneratedOnAdd();
+
+            builder.HasOne(r => r.Cliente) 
                    .WithMany(c => c.Reservas)
-                   .HasForeignKey(r => r.IDCliente)
+                   .HasForeignKey("IdCliente") 
                    .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasOne<Vaga>()
-                   .WithMany(v => v.Reservas)
-                   .HasForeignKey(r => r.IDVaga)
+            builder.HasOne(r => r.Vaga) 
+                   .WithMany() 
+                   .HasForeignKey("IdVaga") 
                    .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasOne<StatusReserva>()
-                   .WithMany(sr => sr.Reservas)
-                   .HasForeignKey(r => r.IDStatusReserva)
+            builder.HasOne(r => r.StatusReserva) 
+                   .WithMany() 
+                   .HasForeignKey("IdStatusReserva") 
                    .OnDelete(DeleteBehavior.Restrict);
 
             builder.Property(r => r.DataHoraReserva)
