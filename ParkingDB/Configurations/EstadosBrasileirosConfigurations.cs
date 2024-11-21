@@ -8,7 +8,16 @@ namespace ParkingDB.Configurations
     {
         public void Configure(EntityTypeBuilder<EstadosBrasileiros> builder)
         {
-            builder.HasKey(eb => eb.UF);
+            builder.HasKey(eb => eb.Id)
+                   .IsClustered(true);
+
+            builder.Property(eb => eb.Id)
+                   .IsRequired()
+                   .ValueGeneratedOnAdd();
+
+            builder.Property(eb => eb.UF)
+                   .IsRequired()
+                   .HasMaxLength(2);
 
             builder.Property(eb => eb.Nome)
                    .IsRequired()

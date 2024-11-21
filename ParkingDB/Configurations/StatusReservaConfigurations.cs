@@ -8,7 +8,12 @@ namespace ParkingDB.Configurations
     {
         public void Configure(EntityTypeBuilder<StatusReserva> builder)
         {
-            builder.HasKey(sr => sr.IDStatusReserva);
+            builder.HasKey(sr => sr.Id)
+                   .IsClustered(true);
+
+            builder.Property(sr => sr.Id)
+                   .IsRequired()
+                   .ValueGeneratedOnAdd();
 
             builder.Property(sr => sr.Descricao)
                    .IsRequired()
