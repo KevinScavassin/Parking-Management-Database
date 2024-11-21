@@ -8,11 +8,16 @@ namespace ParkingDB.Configurations
     {
         public void Configure(EntityTypeBuilder<Endereco> builder)
         {
-            builder.HasKey(e => e.IDEndereco);
+            builder.HasKey(e => e.Id)
+                   .IsClustered(true);
 
-            builder.HasOne<EstadosBrasileiros>() 
-                   .WithMany(uf => uf.Enderecos)
-                   .HasForeignKey(e => e.UF)
+            builder.Property(e => e.Id)
+                   .IsRequired()
+                   .ValueGeneratedOnAdd();
+
+            builder.HasOne(e => e.Estados) 
+                   .WithMany(eb => eb.Enderecos) 
+                   .HasForeignKey("IdEstado") 
                    .OnDelete(DeleteBehavior.Restrict);
 
             builder.Property(e => e.Rua)

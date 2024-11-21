@@ -8,7 +8,12 @@ namespace ParkingDB.Configurations
     {
         public void Configure(EntityTypeBuilder<TipoVeiculo> builder)
         {
-            builder.HasKey(tv => tv.IDTipoVeiculo);
+            builder.HasKey(tv => tv.Id)
+                   .IsClustered(true);
+
+            builder.Property(tv => tv.Id)
+                   .IsRequired()
+                   .ValueGeneratedOnAdd(); ;
 
             builder.Property(tv => tv.Descricao)
                    .IsRequired()
