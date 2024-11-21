@@ -12,8 +12,8 @@ using ParkingDB.Data;
 namespace ParkingDB.Migrations
 {
     [DbContext(typeof(ParkingDBContext))]
-    [Migration("20241107185426_AddedAuditColumns")]
-    partial class AddedAuditColumns
+    [Migration("20241121133132_NewCreate")]
+    partial class NewCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,13 +25,13 @@ namespace ParkingDB.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("ParkingDB.Models.Cliente", b =>
+            modelBuilder.Entity("ParkingDB.Entities.Cliente", b =>
                 {
-                    b.Property<int>("IDCliente")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IDCliente"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("CNPJ")
                         .HasMaxLength(14)
@@ -44,7 +44,7 @@ namespace ParkingDB.Migrations
                     b.Property<DateTime>("DataHoraAlteracao")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DataHoraInclusão")
+                    b.Property<DateTime>("DataHoraInclusao")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETDATE()");
@@ -64,18 +64,20 @@ namespace ParkingDB.Migrations
                         .HasMaxLength(80)
                         .HasColumnType("nvarchar(80)");
 
-                    b.HasKey("IDCliente");
+                    b.HasKey("Id");
+
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"));
 
                     b.ToTable("Clientes");
                 });
 
-            modelBuilder.Entity("ParkingDB.Models.Endereco", b =>
+            modelBuilder.Entity("ParkingDB.Entities.Endereco", b =>
                 {
-                    b.Property<int>("IDEndereco")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IDEndereco"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("CEP")
                         .IsRequired()
@@ -94,10 +96,13 @@ namespace ParkingDB.Migrations
                     b.Property<DateTime>("DataHoraAlteracao")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DataHoraInclusão")
+                    b.Property<DateTime>("DataHoraInclusao")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<string>("IdEstado")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<bool>("IsActive")
                         .ValueGeneratedOnAdd()
@@ -113,10 +118,6 @@ namespace ParkingDB.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("UF")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(1)");
-
                     b.Property<string>("UsuarioAlteracao")
                         .IsRequired()
                         .HasMaxLength(80)
@@ -127,20 +128,22 @@ namespace ParkingDB.Migrations
                         .HasMaxLength(80)
                         .HasColumnType("nvarchar(80)");
 
-                    b.HasKey("IDEndereco");
+                    b.HasKey("Id");
 
-                    b.HasIndex("UF");
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"));
+
+                    b.HasIndex("IdEstado");
 
                     b.ToTable("Enderecos");
                 });
 
-            modelBuilder.Entity("ParkingDB.Models.EntradaSaida", b =>
+            modelBuilder.Entity("ParkingDB.Entities.EntradaSaida", b =>
                 {
-                    b.Property<int>("IDEntradaSaida")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IDEntradaSaida"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("DataHoraAlteracao")
                         .HasColumnType("datetime2");
@@ -148,7 +151,7 @@ namespace ParkingDB.Migrations
                     b.Property<DateTime>("DataHoraEntrada")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DataHoraInclusão")
+                    b.Property<DateTime>("DataHoraInclusao")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETDATE()");
@@ -156,10 +159,16 @@ namespace ParkingDB.Migrations
                     b.Property<DateTime?>("DataHoraSaida")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("IDVaga")
+                    b.Property<int>("IdCliente")
                         .HasColumnType("int");
 
-                    b.Property<int>("IDVeiculo")
+                    b.Property<int>("IdPagamento")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdVaga")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdVeiculo")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsActive")
@@ -177,22 +186,28 @@ namespace ParkingDB.Migrations
                         .HasMaxLength(80)
                         .HasColumnType("nvarchar(80)");
 
-                    b.HasKey("IDEntradaSaida");
+                    b.HasKey("Id");
 
-                    b.HasIndex("IDVaga");
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"));
 
-                    b.HasIndex("IDVeiculo");
+                    b.HasIndex("IdCliente");
+
+                    b.HasIndex("IdPagamento");
+
+                    b.HasIndex("IdVaga");
+
+                    b.HasIndex("IdVeiculo");
 
                     b.ToTable("EntradasSaidas");
                 });
 
-            modelBuilder.Entity("ParkingDB.Models.Estacionamento", b =>
+            modelBuilder.Entity("ParkingDB.Entities.Estacionamento", b =>
                 {
-                    b.Property<int>("IDEstacionamento")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IDEstacionamento"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("Capacidade")
                         .HasColumnType("int");
@@ -200,12 +215,12 @@ namespace ParkingDB.Migrations
                     b.Property<DateTime>("DataHoraAlteracao")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DataHoraInclusão")
+                    b.Property<DateTime>("DataHoraInclusao")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETDATE()");
 
-                    b.Property<int>("IDEndereco")
+                    b.Property<int>("IdEndereco")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsActive")
@@ -228,23 +243,25 @@ namespace ParkingDB.Migrations
                         .HasMaxLength(80)
                         .HasColumnType("nvarchar(80)");
 
-                    b.HasKey("IDEstacionamento");
+                    b.HasKey("Id");
 
-                    b.HasIndex("IDEndereco");
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"));
+
+                    b.HasIndex("IdEndereco");
 
                     b.ToTable("Estacionamentos");
                 });
 
-            modelBuilder.Entity("ParkingDB.Models.EstadosBrasileiros", b =>
+            modelBuilder.Entity("ParkingDB.Entities.EstadosBrasileiros", b =>
                 {
-                    b.Property<string>("UF")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(1)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("DataHoraAlteracao")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DataHoraInclusão")
+                    b.Property<DateTime>("DataHoraInclusao")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETDATE()");
@@ -259,6 +276,11 @@ namespace ParkingDB.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<string>("UF")
+                        .IsRequired()
+                        .HasMaxLength(2)
+                        .HasColumnType("nvarchar(2)");
+
                     b.Property<string>("UsuarioAlteracao")
                         .IsRequired()
                         .HasMaxLength(80)
@@ -269,23 +291,25 @@ namespace ParkingDB.Migrations
                         .HasMaxLength(80)
                         .HasColumnType("nvarchar(80)");
 
-                    b.HasKey("UF");
+                    b.HasKey("Id");
+
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"));
 
                     b.ToTable("EstadosBrasileiros");
                 });
 
-            modelBuilder.Entity("ParkingDB.Models.MetodoPagamento", b =>
+            modelBuilder.Entity("ParkingDB.Entities.MetodoPagamento", b =>
                 {
-                    b.Property<int>("IDMetodoPagamento")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IDMetodoPagamento"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("DataHoraAlteracao")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DataHoraInclusão")
+                    b.Property<DateTime>("DataHoraInclusao")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETDATE()");
@@ -310,34 +334,30 @@ namespace ParkingDB.Migrations
                         .HasMaxLength(80)
                         .HasColumnType("nvarchar(80)");
 
-                    b.HasKey("IDMetodoPagamento");
+                    b.HasKey("Id");
+
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"));
 
                     b.ToTable("MetodoPagamentos");
                 });
 
-            modelBuilder.Entity("ParkingDB.Models.Pagamento", b =>
+            modelBuilder.Entity("ParkingDB.Entities.Pagamento", b =>
                 {
-                    b.Property<int>("IDPagamento")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IDPagamento"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("DataHoraAlteracao")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DataHoraInclusão")
+                    b.Property<DateTime>("DataHoraInclusao")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETDATE()");
 
-                    b.Property<int>("IDCliente")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IDEntradaSaida")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IDMetodoPagamento")
+                    b.Property<int>("IdMetodoPagamento")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsActive")
@@ -358,29 +378,27 @@ namespace ParkingDB.Migrations
                     b.Property<decimal>("Valor")
                         .HasColumnType("decimal(6,2)");
 
-                    b.HasKey("IDPagamento");
+                    b.HasKey("Id");
 
-                    b.HasIndex("IDCliente");
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"));
 
-                    b.HasIndex("IDEntradaSaida");
-
-                    b.HasIndex("IDMetodoPagamento");
+                    b.HasIndex("IdMetodoPagamento");
 
                     b.ToTable("Pagamentos");
                 });
 
-            modelBuilder.Entity("ParkingDB.Models.Reserva", b =>
+            modelBuilder.Entity("ParkingDB.Entities.Reserva", b =>
                 {
-                    b.Property<int>("IDReserva")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IDReserva"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("DataHoraAlteracao")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DataHoraInclusão")
+                    b.Property<DateTime>("DataHoraInclusao")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETDATE()");
@@ -388,13 +406,13 @@ namespace ParkingDB.Migrations
                     b.Property<DateTime>("DataHoraReserva")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("IDCliente")
+                    b.Property<int>("IdCliente")
                         .HasColumnType("int");
 
-                    b.Property<int>("IDStatusReserva")
+                    b.Property<int>("IdStatusReserva")
                         .HasColumnType("int");
 
-                    b.Property<int>("IDVaga")
+                    b.Property<int>("IdVaga")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsActive")
@@ -412,29 +430,31 @@ namespace ParkingDB.Migrations
                         .HasMaxLength(80)
                         .HasColumnType("nvarchar(80)");
 
-                    b.HasKey("IDReserva");
+                    b.HasKey("Id");
 
-                    b.HasIndex("IDCliente");
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"));
 
-                    b.HasIndex("IDStatusReserva");
+                    b.HasIndex("IdCliente");
 
-                    b.HasIndex("IDVaga");
+                    b.HasIndex("IdStatusReserva");
+
+                    b.HasIndex("IdVaga");
 
                     b.ToTable("Reservas");
                 });
 
-            modelBuilder.Entity("ParkingDB.Models.StatusReserva", b =>
+            modelBuilder.Entity("ParkingDB.Entities.StatusReserva", b =>
                 {
-                    b.Property<int>("IDStatusReserva")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IDStatusReserva"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("DataHoraAlteracao")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DataHoraInclusão")
+                    b.Property<DateTime>("DataHoraInclusao")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETDATE()");
@@ -459,23 +479,25 @@ namespace ParkingDB.Migrations
                         .HasMaxLength(80)
                         .HasColumnType("nvarchar(80)");
 
-                    b.HasKey("IDStatusReserva");
+                    b.HasKey("Id");
+
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"));
 
                     b.ToTable("StatusReservas");
                 });
 
-            modelBuilder.Entity("ParkingDB.Models.StatusVaga", b =>
+            modelBuilder.Entity("ParkingDB.Entities.StatusVaga", b =>
                 {
-                    b.Property<int>("IDStatusVaga")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IDStatusVaga"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("DataHoraAlteracao")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DataHoraInclusão")
+                    b.Property<DateTime>("DataHoraInclusao")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETDATE()");
@@ -500,18 +522,20 @@ namespace ParkingDB.Migrations
                         .HasMaxLength(80)
                         .HasColumnType("nvarchar(80)");
 
-                    b.HasKey("IDStatusVaga");
+                    b.HasKey("Id");
+
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"));
 
                     b.ToTable("StatusVagas");
                 });
 
-            modelBuilder.Entity("ParkingDB.Models.Telefone", b =>
+            modelBuilder.Entity("ParkingDB.Entities.Telefone", b =>
                 {
-                    b.Property<int>("IDTelefone")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IDTelefone"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("DDD")
                         .IsRequired()
@@ -521,12 +545,12 @@ namespace ParkingDB.Migrations
                     b.Property<DateTime>("DataHoraAlteracao")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DataHoraInclusão")
+                    b.Property<DateTime>("DataHoraInclusao")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETDATE()");
 
-                    b.Property<int>("IDCliente")
+                    b.Property<int>("IdCliente")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsActive")
@@ -549,25 +573,27 @@ namespace ParkingDB.Migrations
                         .HasMaxLength(80)
                         .HasColumnType("nvarchar(80)");
 
-                    b.HasKey("IDTelefone");
+                    b.HasKey("Id");
 
-                    b.HasIndex("IDCliente");
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"));
+
+                    b.HasIndex("IdCliente");
 
                     b.ToTable("Telefones");
                 });
 
-            modelBuilder.Entity("ParkingDB.Models.TipoVeiculo", b =>
+            modelBuilder.Entity("ParkingDB.Entities.TipoVeiculo", b =>
                 {
-                    b.Property<int>("IDTipoVeiculo")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IDTipoVeiculo"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("DataHoraAlteracao")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DataHoraInclusão")
+                    b.Property<DateTime>("DataHoraInclusao")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETDATE()");
@@ -592,34 +618,36 @@ namespace ParkingDB.Migrations
                         .HasMaxLength(80)
                         .HasColumnType("nvarchar(80)");
 
-                    b.HasKey("IDTipoVeiculo");
+                    b.HasKey("Id");
+
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"));
 
                     b.ToTable("TipoVeiculos");
                 });
 
-            modelBuilder.Entity("ParkingDB.Models.Vaga", b =>
+            modelBuilder.Entity("ParkingDB.Entities.Vaga", b =>
                 {
-                    b.Property<int>("IDVaga")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IDVaga"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("DataHoraAlteracao")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DataHoraInclusão")
+                    b.Property<DateTime>("DataHoraInclusao")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETDATE()");
 
-                    b.Property<int>("IDEstacionamento")
+                    b.Property<int>("IdEstacionamento")
                         .HasColumnType("int");
 
-                    b.Property<int>("IDStatusVaga")
+                    b.Property<int>("IdStatusVaga")
                         .HasColumnType("int");
 
-                    b.Property<int>("IDTipoVeiculo")
+                    b.Property<int>("IdTipoVeiculo")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsActive")
@@ -637,24 +665,26 @@ namespace ParkingDB.Migrations
                         .HasMaxLength(80)
                         .HasColumnType("nvarchar(80)");
 
-                    b.HasKey("IDVaga");
+                    b.HasKey("Id");
 
-                    b.HasIndex("IDEstacionamento");
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"));
 
-                    b.HasIndex("IDStatusVaga");
+                    b.HasIndex("IdEstacionamento");
 
-                    b.HasIndex("IDTipoVeiculo");
+                    b.HasIndex("IdStatusVaga");
+
+                    b.HasIndex("IdTipoVeiculo");
 
                     b.ToTable("Vagas");
                 });
 
-            modelBuilder.Entity("ParkingDB.Models.Veiculo", b =>
+            modelBuilder.Entity("ParkingDB.Entities.Veiculo", b =>
                 {
-                    b.Property<int>("IDVeiculo")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IDVeiculo"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Cor")
                         .IsRequired()
@@ -664,15 +694,15 @@ namespace ParkingDB.Migrations
                     b.Property<DateTime>("DataHoraAlteracao")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DataHoraInclusão")
+                    b.Property<DateTime>("DataHoraInclusao")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETDATE()");
 
-                    b.Property<int>("IDCliente")
+                    b.Property<int>("IdCliente")
                         .HasColumnType("int");
 
-                    b.Property<int>("IDTipoVeiculo")
+                    b.Property<int>("IdTipoVeiculo")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsActive")
@@ -700,145 +730,170 @@ namespace ParkingDB.Migrations
                         .HasMaxLength(80)
                         .HasColumnType("nvarchar(80)");
 
-                    b.HasKey("IDVeiculo");
+                    b.HasKey("Id");
 
-                    b.HasIndex("IDCliente");
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"));
 
-                    b.HasIndex("IDTipoVeiculo");
+                    b.HasIndex("IdCliente");
+
+                    b.HasIndex("IdTipoVeiculo");
 
                     b.ToTable("Veiculos");
                 });
 
-            modelBuilder.Entity("ParkingDB.Models.Endereco", b =>
+            modelBuilder.Entity("ParkingDB.Entities.Endereco", b =>
                 {
-                    b.HasOne("ParkingDB.Models.EstadosBrasileiros", null)
+                    b.HasOne("ParkingDB.Entities.EstadosBrasileiros", "Estados")
                         .WithMany("Enderecos")
-                        .HasForeignKey("UF")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("IdEstado")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("Estados");
                 });
 
-            modelBuilder.Entity("ParkingDB.Models.EntradaSaida", b =>
+            modelBuilder.Entity("ParkingDB.Entities.EntradaSaida", b =>
                 {
-                    b.HasOne("ParkingDB.Models.Vaga", null)
-                        .WithMany("EntradaSaidas")
-                        .HasForeignKey("IDVaga")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("ParkingDB.Models.Veiculo", null)
-                        .WithMany("EntradaSaidas")
-                        .HasForeignKey("IDVeiculo")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("ParkingDB.Models.Estacionamento", b =>
-                {
-                    b.HasOne("ParkingDB.Models.Endereco", "Endereco")
+                    b.HasOne("ParkingDB.Entities.Cliente", "Cliente")
                         .WithMany()
-                        .HasForeignKey("IDEndereco")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("IdCliente")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ParkingDB.Entities.Pagamento", "Pagamento")
+                        .WithMany()
+                        .HasForeignKey("IdPagamento")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ParkingDB.Entities.Vaga", "Vaga")
+                        .WithMany()
+                        .HasForeignKey("IdVaga")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ParkingDB.Entities.Veiculo", "Veiculo")
+                        .WithMany()
+                        .HasForeignKey("IdVeiculo")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Cliente");
+
+                    b.Navigation("Pagamento");
+
+                    b.Navigation("Vaga");
+
+                    b.Navigation("Veiculo");
+                });
+
+            modelBuilder.Entity("ParkingDB.Entities.Estacionamento", b =>
+                {
+                    b.HasOne("ParkingDB.Entities.Endereco", "Endereco")
+                        .WithMany()
+                        .HasForeignKey("IdEndereco")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Endereco");
                 });
 
-            modelBuilder.Entity("ParkingDB.Models.Pagamento", b =>
+            modelBuilder.Entity("ParkingDB.Entities.Pagamento", b =>
                 {
-                    b.HasOne("ParkingDB.Models.Cliente", null)
-                        .WithMany("Pagamentos")
-                        .HasForeignKey("IDCliente")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("ParkingDB.Models.EntradaSaida", "EntradaSaida")
+                    b.HasOne("ParkingDB.Entities.MetodoPagamento", "MetodoPagamento")
                         .WithMany()
-                        .HasForeignKey("IDEntradaSaida")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ParkingDB.Models.MetodoPagamento", null)
-                        .WithMany("Pagamentos")
-                        .HasForeignKey("IDMetodoPagamento")
+                        .HasForeignKey("IdMetodoPagamento")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("EntradaSaida");
+                    b.Navigation("MetodoPagamento");
                 });
 
-            modelBuilder.Entity("ParkingDB.Models.Reserva", b =>
+            modelBuilder.Entity("ParkingDB.Entities.Reserva", b =>
                 {
-                    b.HasOne("ParkingDB.Models.Cliente", null)
+                    b.HasOne("ParkingDB.Entities.Cliente", "Cliente")
                         .WithMany("Reservas")
-                        .HasForeignKey("IDCliente")
+                        .HasForeignKey("IdCliente")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("ParkingDB.Models.StatusReserva", null)
-                        .WithMany("Reservas")
-                        .HasForeignKey("IDStatusReserva")
+                    b.HasOne("ParkingDB.Entities.StatusReserva", "StatusReserva")
+                        .WithMany()
+                        .HasForeignKey("IdStatusReserva")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("ParkingDB.Models.Vaga", null)
-                        .WithMany("Reservas")
-                        .HasForeignKey("IDVaga")
+                    b.HasOne("ParkingDB.Entities.Vaga", "Vaga")
+                        .WithMany()
+                        .HasForeignKey("IdVaga")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("Cliente");
+
+                    b.Navigation("StatusReserva");
+
+                    b.Navigation("Vaga");
                 });
 
-            modelBuilder.Entity("ParkingDB.Models.Telefone", b =>
+            modelBuilder.Entity("ParkingDB.Entities.Telefone", b =>
                 {
-                    b.HasOne("ParkingDB.Models.Cliente", null)
+                    b.HasOne("ParkingDB.Entities.Cliente", "Cliente")
                         .WithMany("Telefones")
-                        .HasForeignKey("IDCliente")
+                        .HasForeignKey("IdCliente")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("Cliente");
                 });
 
-            modelBuilder.Entity("ParkingDB.Models.Vaga", b =>
+            modelBuilder.Entity("ParkingDB.Entities.Vaga", b =>
                 {
-                    b.HasOne("ParkingDB.Models.Estacionamento", "Estacionamento")
-                        .WithMany()
-                        .HasForeignKey("IDEstacionamento")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ParkingDB.Models.StatusVaga", null)
+                    b.HasOne("ParkingDB.Entities.Estacionamento", "Estacionamento")
                         .WithMany("Vagas")
-                        .HasForeignKey("IDStatusVaga")
+                        .HasForeignKey("IdEstacionamento")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("ParkingDB.Models.TipoVeiculo", null)
-                        .WithMany("Vagas")
-                        .HasForeignKey("IDTipoVeiculo")
+                    b.HasOne("ParkingDB.Entities.StatusVaga", "StatusVaga")
+                        .WithMany()
+                        .HasForeignKey("IdStatusVaga")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ParkingDB.Entities.TipoVeiculo", "TipoVeiculo")
+                        .WithMany()
+                        .HasForeignKey("IdTipoVeiculo")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Estacionamento");
+
+                    b.Navigation("StatusVaga");
+
+                    b.Navigation("TipoVeiculo");
                 });
 
-            modelBuilder.Entity("ParkingDB.Models.Veiculo", b =>
+            modelBuilder.Entity("ParkingDB.Entities.Veiculo", b =>
                 {
-                    b.HasOne("ParkingDB.Models.Cliente", null)
+                    b.HasOne("ParkingDB.Entities.Cliente", "Cliente")
                         .WithMany("Veiculos")
-                        .HasForeignKey("IDCliente")
+                        .HasForeignKey("IdCliente")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("ParkingDB.Models.TipoVeiculo", null)
-                        .WithMany("Veiculos")
-                        .HasForeignKey("IDTipoVeiculo")
+                    b.HasOne("ParkingDB.Entities.TipoVeiculo", "TipoVeiculo")
+                        .WithMany()
+                        .HasForeignKey("IdTipoVeiculo")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("Cliente");
+
+                    b.Navigation("TipoVeiculo");
                 });
 
-            modelBuilder.Entity("ParkingDB.Models.Cliente", b =>
+            modelBuilder.Entity("ParkingDB.Entities.Cliente", b =>
                 {
-                    b.Navigation("Pagamentos");
-
                     b.Navigation("Reservas");
 
                     b.Navigation("Telefones");
@@ -846,43 +901,14 @@ namespace ParkingDB.Migrations
                     b.Navigation("Veiculos");
                 });
 
-            modelBuilder.Entity("ParkingDB.Models.EstadosBrasileiros", b =>
+            modelBuilder.Entity("ParkingDB.Entities.Estacionamento", b =>
+                {
+                    b.Navigation("Vagas");
+                });
+
+            modelBuilder.Entity("ParkingDB.Entities.EstadosBrasileiros", b =>
                 {
                     b.Navigation("Enderecos");
-                });
-
-            modelBuilder.Entity("ParkingDB.Models.MetodoPagamento", b =>
-                {
-                    b.Navigation("Pagamentos");
-                });
-
-            modelBuilder.Entity("ParkingDB.Models.StatusReserva", b =>
-                {
-                    b.Navigation("Reservas");
-                });
-
-            modelBuilder.Entity("ParkingDB.Models.StatusVaga", b =>
-                {
-                    b.Navigation("Vagas");
-                });
-
-            modelBuilder.Entity("ParkingDB.Models.TipoVeiculo", b =>
-                {
-                    b.Navigation("Vagas");
-
-                    b.Navigation("Veiculos");
-                });
-
-            modelBuilder.Entity("ParkingDB.Models.Vaga", b =>
-                {
-                    b.Navigation("EntradaSaidas");
-
-                    b.Navigation("Reservas");
-                });
-
-            modelBuilder.Entity("ParkingDB.Models.Veiculo", b =>
-                {
-                    b.Navigation("EntradaSaidas");
                 });
 #pragma warning restore 612, 618
         }

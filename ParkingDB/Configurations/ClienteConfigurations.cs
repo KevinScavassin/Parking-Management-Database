@@ -8,7 +8,12 @@ namespace ParkingDB.Configurations
     {
         public void Configure(EntityTypeBuilder<Cliente> builder)
         {
-            builder.HasKey(c => c.IDCliente);
+            builder.HasKey(c => c.Id)
+                   .IsClustered(true);
+
+            builder.Property(c => c.Id)
+                   .IsRequired()
+                   .ValueGeneratedOnAdd();
 
             builder.Property(c => c.CPF)
                     .IsRequired(false)
