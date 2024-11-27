@@ -12,6 +12,7 @@ namespace ParkingDB.Configurations
                    .IsClustered(true);
 
             builder.Property(mp => mp.Id)
+                   .HasColumnName($"{nameof(MetodoPagamento)}Id")
                    .IsRequired()
                    .ValueGeneratedOnAdd();
 

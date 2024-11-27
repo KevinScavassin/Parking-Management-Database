@@ -12,22 +12,20 @@ namespace ParkingDB.Configurations
                    .IsClustered(true);
 
             builder.Property(r => r.Id)
+                   .HasColumnName($"{nameof(Reserva)}Id")
                    .IsRequired()
                    .ValueGeneratedOnAdd();
 
             builder.HasOne(r => r.Cliente) 
                    .WithMany(c => c.Reservas)
-                   .HasForeignKey("IdCliente") 
                    .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(r => r.Vaga) 
                    .WithMany() 
-                   .HasForeignKey("IdVaga") 
                    .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(r => r.StatusReserva) 
                    .WithMany() 
-                   .HasForeignKey("IdStatusReserva") 
                    .OnDelete(DeleteBehavior.Restrict);
 
             builder.Property(r => r.DataHoraReserva)

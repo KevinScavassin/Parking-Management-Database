@@ -12,12 +12,12 @@ namespace ParkingDB.Configurations
                    .IsClustered(true);
 
             builder.Property(p => p.Id)
+                   .HasColumnName($"{nameof(Pagamento)}Id")
                    .IsRequired()
                    .ValueGeneratedOnAdd();
 
             builder.HasOne(p => p.MetodoPagamento) 
                    .WithMany()
-                   .HasForeignKey("IdMetodoPagamento") 
                    .OnDelete(DeleteBehavior.Restrict);
 
             builder.Property(p => p.Valor)

@@ -12,23 +12,21 @@ namespace ParkingDB.Configurations
             builder.HasKey(v => v.Id)
                    .IsClustered(true);
 
-            builder.Property(v => v.Id) 
+            builder.Property(v => v.Id)
+                   .HasColumnName($"{nameof(Vaga)}Id")
                    .IsRequired()
                    .ValueGeneratedOnAdd();
 
             builder.HasOne(v => v.Estacionamento) 
                    .WithMany(e => e.Vagas) 
-                   .HasForeignKey("IdEstacionamento")
                    .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(v => v.TipoVeiculo) 
                    .WithMany() 
-                   .HasForeignKey("IdTipoVeiculo") 
                    .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(v => v.StatusVaga) 
                    .WithMany() 
-                   .HasForeignKey("IdStatusVaga") 
                    .OnDelete(DeleteBehavior.Restrict);
 
             builder.Property(v => v.DataHoraInclusao)
