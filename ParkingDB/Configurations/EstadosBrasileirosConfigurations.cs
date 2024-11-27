@@ -12,6 +12,7 @@ namespace ParkingDB.Configurations
                    .IsClustered(true);
 
             builder.Property(eb => eb.Id)
+                   .HasColumnName($"{nameof(EstadosBrasileiros)}Id")
                    .IsRequired()
                    .ValueGeneratedOnAdd();
 

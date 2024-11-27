@@ -12,6 +12,7 @@ namespace ParkingDB.Configurations
                    .IsClustered(true);
 
             builder.Property(sv => sv.Id)
+                   .HasColumnName($"{nameof(StatusVaga)}Id")
                    .IsRequired()
                    .ValueGeneratedOnAdd(); ;
 

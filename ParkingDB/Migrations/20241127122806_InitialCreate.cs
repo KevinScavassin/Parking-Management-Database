@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ParkingDB.Migrations
 {
     /// <inheritdoc />
-    public partial class NewCreate : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,7 +15,7 @@ namespace ParkingDB.Migrations
                 name: "Clientes",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    ClienteId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CPF = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: true),
                     CNPJ = table.Column<string>(type: "nvarchar(14)", maxLength: 14, nullable: true),
@@ -27,7 +27,7 @@ namespace ParkingDB.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Clientes", x => x.Id)
+                    table.PrimaryKey("PK_Clientes", x => x.ClienteId)
                         .Annotation("SqlServer:Clustered", true);
                 });
 
@@ -35,7 +35,7 @@ namespace ParkingDB.Migrations
                 name: "EstadosBrasileiros",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    EstadosBrasileirosId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     UF = table.Column<string>(type: "nvarchar(2)", maxLength: 2, nullable: false),
                     Nome = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     DataHoraInclusao = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
@@ -46,7 +46,7 @@ namespace ParkingDB.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_EstadosBrasileiros", x => x.Id)
+                    table.PrimaryKey("PK_EstadosBrasileiros", x => x.EstadosBrasileirosId)
                         .Annotation("SqlServer:Clustered", true);
                 });
 
@@ -54,7 +54,7 @@ namespace ParkingDB.Migrations
                 name: "MetodoPagamentos",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    MetodoPagamentoId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Descricao = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     DataHoraInclusao = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
@@ -65,7 +65,7 @@ namespace ParkingDB.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MetodoPagamentos", x => x.Id)
+                    table.PrimaryKey("PK_MetodoPagamentos", x => x.MetodoPagamentoId)
                         .Annotation("SqlServer:Clustered", true);
                 });
 
@@ -73,7 +73,7 @@ namespace ParkingDB.Migrations
                 name: "StatusReservas",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    StatusReservaId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Descricao = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     DataHoraInclusao = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
@@ -84,7 +84,7 @@ namespace ParkingDB.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_StatusReservas", x => x.Id)
+                    table.PrimaryKey("PK_StatusReservas", x => x.StatusReservaId)
                         .Annotation("SqlServer:Clustered", true);
                 });
 
@@ -92,7 +92,7 @@ namespace ParkingDB.Migrations
                 name: "StatusVagas",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    StatusVagaId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Descricao = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     DataHoraInclusao = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
@@ -103,7 +103,7 @@ namespace ParkingDB.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_StatusVagas", x => x.Id)
+                    table.PrimaryKey("PK_StatusVagas", x => x.StatusVagaId)
                         .Annotation("SqlServer:Clustered", true);
                 });
 
@@ -111,7 +111,7 @@ namespace ParkingDB.Migrations
                 name: "TipoVeiculos",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    TipoVeiculoId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Descricao = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     DataHoraInclusao = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
@@ -122,7 +122,7 @@ namespace ParkingDB.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TipoVeiculos", x => x.Id)
+                    table.PrimaryKey("PK_TipoVeiculos", x => x.TipoVeiculoId)
                         .Annotation("SqlServer:Clustered", true);
                 });
 
@@ -130,11 +130,11 @@ namespace ParkingDB.Migrations
                 name: "Telefones",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    TelefoneId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DDD = table.Column<string>(type: "nvarchar(3)", maxLength: 3, nullable: false),
                     NumeroTelefone = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
-                    IdCliente = table.Column<int>(type: "int", nullable: false),
+                    ClienteId = table.Column<int>(type: "int", nullable: false),
                     DataHoraInclusao = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
                     UsuarioInclusao = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: false),
                     DataHoraAlteracao = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -143,13 +143,13 @@ namespace ParkingDB.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Telefones", x => x.Id)
+                    table.PrimaryKey("PK_Telefones", x => x.TelefoneId)
                         .Annotation("SqlServer:Clustered", true);
                     table.ForeignKey(
-                        name: "FK_Telefones_Clientes_IdCliente",
-                        column: x => x.IdCliente,
+                        name: "FK_Telefones_Clientes_ClienteId",
+                        column: x => x.ClienteId,
                         principalTable: "Clientes",
-                        principalColumn: "Id",
+                        principalColumn: "ClienteId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -157,14 +157,14 @@ namespace ParkingDB.Migrations
                 name: "Enderecos",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    EnderecoId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Rua = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Numero = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Cidade = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     CEP = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),
                     Complemento = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    IdEstado = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    EstadosId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     DataHoraInclusao = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
                     UsuarioInclusao = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: false),
                     DataHoraAlteracao = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -173,13 +173,13 @@ namespace ParkingDB.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Enderecos", x => x.Id)
+                    table.PrimaryKey("PK_Enderecos", x => x.EnderecoId)
                         .Annotation("SqlServer:Clustered", true);
                     table.ForeignKey(
-                        name: "FK_Enderecos_EstadosBrasileiros_IdEstado",
-                        column: x => x.IdEstado,
+                        name: "FK_Enderecos_EstadosBrasileiros_EstadosId",
+                        column: x => x.EstadosId,
                         principalTable: "EstadosBrasileiros",
-                        principalColumn: "Id",
+                        principalColumn: "EstadosBrasileirosId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -187,10 +187,10 @@ namespace ParkingDB.Migrations
                 name: "Pagamentos",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    PagamentoId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Valor = table.Column<decimal>(type: "decimal(6,2)", nullable: false),
-                    IdMetodoPagamento = table.Column<int>(type: "int", nullable: false),
+                    MetodoPagamentoId = table.Column<int>(type: "int", nullable: false),
                     DataHoraInclusao = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
                     UsuarioInclusao = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: false),
                     DataHoraAlteracao = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -199,13 +199,13 @@ namespace ParkingDB.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Pagamentos", x => x.Id)
+                    table.PrimaryKey("PK_Pagamentos", x => x.PagamentoId)
                         .Annotation("SqlServer:Clustered", true);
                     table.ForeignKey(
-                        name: "FK_Pagamentos_MetodoPagamentos_IdMetodoPagamento",
-                        column: x => x.IdMetodoPagamento,
+                        name: "FK_Pagamentos_MetodoPagamentos_MetodoPagamentoId",
+                        column: x => x.MetodoPagamentoId,
                         principalTable: "MetodoPagamentos",
-                        principalColumn: "Id",
+                        principalColumn: "MetodoPagamentoId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -213,13 +213,13 @@ namespace ParkingDB.Migrations
                 name: "Veiculos",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    VeiculoId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Placa = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
                     Cor = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Modelo = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    IdCliente = table.Column<int>(type: "int", nullable: false),
-                    IdTipoVeiculo = table.Column<int>(type: "int", nullable: false),
+                    ClienteId = table.Column<int>(type: "int", nullable: false),
+                    TipoVeiculoId = table.Column<int>(type: "int", nullable: false),
                     DataHoraInclusao = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
                     UsuarioInclusao = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: false),
                     DataHoraAlteracao = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -228,19 +228,19 @@ namespace ParkingDB.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Veiculos", x => x.Id)
+                    table.PrimaryKey("PK_Veiculos", x => x.VeiculoId)
                         .Annotation("SqlServer:Clustered", true);
                     table.ForeignKey(
-                        name: "FK_Veiculos_Clientes_IdCliente",
-                        column: x => x.IdCliente,
+                        name: "FK_Veiculos_Clientes_ClienteId",
+                        column: x => x.ClienteId,
                         principalTable: "Clientes",
-                        principalColumn: "Id",
+                        principalColumn: "ClienteId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Veiculos_TipoVeiculos_IdTipoVeiculo",
-                        column: x => x.IdTipoVeiculo,
+                        name: "FK_Veiculos_TipoVeiculos_TipoVeiculoId",
+                        column: x => x.TipoVeiculoId,
                         principalTable: "TipoVeiculos",
-                        principalColumn: "Id",
+                        principalColumn: "TipoVeiculoId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -248,11 +248,11 @@ namespace ParkingDB.Migrations
                 name: "Estacionamentos",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    EstacionamentoId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nome = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Capacidade = table.Column<int>(type: "int", nullable: false),
-                    IdEndereco = table.Column<int>(type: "int", nullable: false),
+                    EnderecoId = table.Column<int>(type: "int", nullable: false),
                     DataHoraInclusao = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
                     UsuarioInclusao = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: false),
                     DataHoraAlteracao = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -261,13 +261,13 @@ namespace ParkingDB.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Estacionamentos", x => x.Id)
+                    table.PrimaryKey("PK_Estacionamentos", x => x.EstacionamentoId)
                         .Annotation("SqlServer:Clustered", true);
                     table.ForeignKey(
-                        name: "FK_Estacionamentos_Enderecos_IdEndereco",
-                        column: x => x.IdEndereco,
+                        name: "FK_Estacionamentos_Enderecos_EnderecoId",
+                        column: x => x.EnderecoId,
                         principalTable: "Enderecos",
-                        principalColumn: "Id",
+                        principalColumn: "EnderecoId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -275,11 +275,11 @@ namespace ParkingDB.Migrations
                 name: "Vagas",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    VagaId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    IdEstacionamento = table.Column<int>(type: "int", nullable: false),
-                    IdTipoVeiculo = table.Column<int>(type: "int", nullable: false),
-                    IdStatusVaga = table.Column<int>(type: "int", nullable: false),
+                    EstacionamentoId = table.Column<int>(type: "int", nullable: false),
+                    TipoVeiculoId = table.Column<int>(type: "int", nullable: false),
+                    StatusVagaId = table.Column<int>(type: "int", nullable: false),
                     DataHoraInclusao = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
                     UsuarioInclusao = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: false),
                     DataHoraAlteracao = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -288,25 +288,25 @@ namespace ParkingDB.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Vagas", x => x.Id)
+                    table.PrimaryKey("PK_Vagas", x => x.VagaId)
                         .Annotation("SqlServer:Clustered", true);
                     table.ForeignKey(
-                        name: "FK_Vagas_Estacionamentos_IdEstacionamento",
-                        column: x => x.IdEstacionamento,
+                        name: "FK_Vagas_Estacionamentos_EstacionamentoId",
+                        column: x => x.EstacionamentoId,
                         principalTable: "Estacionamentos",
-                        principalColumn: "Id",
+                        principalColumn: "EstacionamentoId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Vagas_StatusVagas_IdStatusVaga",
-                        column: x => x.IdStatusVaga,
+                        name: "FK_Vagas_StatusVagas_StatusVagaId",
+                        column: x => x.StatusVagaId,
                         principalTable: "StatusVagas",
-                        principalColumn: "Id",
+                        principalColumn: "StatusVagaId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Vagas_TipoVeiculos_IdTipoVeiculo",
-                        column: x => x.IdTipoVeiculo,
+                        name: "FK_Vagas_TipoVeiculos_TipoVeiculoId",
+                        column: x => x.TipoVeiculoId,
                         principalTable: "TipoVeiculos",
-                        principalColumn: "Id",
+                        principalColumn: "TipoVeiculoId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -314,14 +314,14 @@ namespace ParkingDB.Migrations
                 name: "EntradasSaidas",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    EntradaSaidaId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DataHoraEntrada = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DataHoraSaida = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    IdVaga = table.Column<int>(type: "int", nullable: false),
-                    IdVeiculo = table.Column<int>(type: "int", nullable: false),
-                    IdCliente = table.Column<int>(type: "int", nullable: false),
-                    IdPagamento = table.Column<int>(type: "int", nullable: false),
+                    VagaId = table.Column<int>(type: "int", nullable: false),
+                    VeiculoId = table.Column<int>(type: "int", nullable: false),
+                    ClienteId = table.Column<int>(type: "int", nullable: false),
+                    PagamentoId = table.Column<int>(type: "int", nullable: false),
                     DataHoraInclusao = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
                     UsuarioInclusao = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: false),
                     DataHoraAlteracao = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -330,31 +330,31 @@ namespace ParkingDB.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_EntradasSaidas", x => x.Id)
+                    table.PrimaryKey("PK_EntradasSaidas", x => x.EntradaSaidaId)
                         .Annotation("SqlServer:Clustered", true);
                     table.ForeignKey(
-                        name: "FK_EntradasSaidas_Clientes_IdCliente",
-                        column: x => x.IdCliente,
+                        name: "FK_EntradasSaidas_Clientes_ClienteId",
+                        column: x => x.ClienteId,
                         principalTable: "Clientes",
-                        principalColumn: "Id",
+                        principalColumn: "ClienteId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_EntradasSaidas_Pagamentos_IdPagamento",
-                        column: x => x.IdPagamento,
+                        name: "FK_EntradasSaidas_Pagamentos_PagamentoId",
+                        column: x => x.PagamentoId,
                         principalTable: "Pagamentos",
-                        principalColumn: "Id",
+                        principalColumn: "PagamentoId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_EntradasSaidas_Vagas_IdVaga",
-                        column: x => x.IdVaga,
+                        name: "FK_EntradasSaidas_Vagas_VagaId",
+                        column: x => x.VagaId,
                         principalTable: "Vagas",
-                        principalColumn: "Id",
+                        principalColumn: "VagaId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_EntradasSaidas_Veiculos_IdVeiculo",
-                        column: x => x.IdVeiculo,
+                        name: "FK_EntradasSaidas_Veiculos_VeiculoId",
+                        column: x => x.VeiculoId,
                         principalTable: "Veiculos",
-                        principalColumn: "Id",
+                        principalColumn: "VeiculoId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -362,12 +362,12 @@ namespace ParkingDB.Migrations
                 name: "Reservas",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    ReservaId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DataHoraReserva = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IdCliente = table.Column<int>(type: "int", nullable: false),
-                    IdVaga = table.Column<int>(type: "int", nullable: false),
-                    IdStatusReserva = table.Column<int>(type: "int", nullable: false),
+                    ClienteId = table.Column<int>(type: "int", nullable: false),
+                    VagaId = table.Column<int>(type: "int", nullable: false),
+                    StatusReservaId = table.Column<int>(type: "int", nullable: false),
                     DataHoraInclusao = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
                     UsuarioInclusao = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: false),
                     DataHoraAlteracao = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -376,107 +376,107 @@ namespace ParkingDB.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Reservas", x => x.Id)
+                    table.PrimaryKey("PK_Reservas", x => x.ReservaId)
                         .Annotation("SqlServer:Clustered", true);
                     table.ForeignKey(
-                        name: "FK_Reservas_Clientes_IdCliente",
-                        column: x => x.IdCliente,
+                        name: "FK_Reservas_Clientes_ClienteId",
+                        column: x => x.ClienteId,
                         principalTable: "Clientes",
-                        principalColumn: "Id",
+                        principalColumn: "ClienteId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Reservas_StatusReservas_IdStatusReserva",
-                        column: x => x.IdStatusReserva,
+                        name: "FK_Reservas_StatusReservas_StatusReservaId",
+                        column: x => x.StatusReservaId,
                         principalTable: "StatusReservas",
-                        principalColumn: "Id",
+                        principalColumn: "StatusReservaId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Reservas_Vagas_IdVaga",
-                        column: x => x.IdVaga,
+                        name: "FK_Reservas_Vagas_VagaId",
+                        column: x => x.VagaId,
                         principalTable: "Vagas",
-                        principalColumn: "Id",
+                        principalColumn: "VagaId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Enderecos_IdEstado",
+                name: "IX_Enderecos_EstadosId",
                 table: "Enderecos",
-                column: "IdEstado");
+                column: "EstadosId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_EntradasSaidas_IdCliente",
+                name: "IX_EntradasSaidas_ClienteId",
                 table: "EntradasSaidas",
-                column: "IdCliente");
+                column: "ClienteId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_EntradasSaidas_IdPagamento",
+                name: "IX_EntradasSaidas_PagamentoId",
                 table: "EntradasSaidas",
-                column: "IdPagamento");
+                column: "PagamentoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_EntradasSaidas_IdVaga",
+                name: "IX_EntradasSaidas_VagaId",
                 table: "EntradasSaidas",
-                column: "IdVaga");
+                column: "VagaId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_EntradasSaidas_IdVeiculo",
+                name: "IX_EntradasSaidas_VeiculoId",
                 table: "EntradasSaidas",
-                column: "IdVeiculo");
+                column: "VeiculoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Estacionamentos_IdEndereco",
+                name: "IX_Estacionamentos_EnderecoId",
                 table: "Estacionamentos",
-                column: "IdEndereco");
+                column: "EnderecoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Pagamentos_IdMetodoPagamento",
+                name: "IX_Pagamentos_MetodoPagamentoId",
                 table: "Pagamentos",
-                column: "IdMetodoPagamento");
+                column: "MetodoPagamentoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Reservas_IdCliente",
+                name: "IX_Reservas_ClienteId",
                 table: "Reservas",
-                column: "IdCliente");
+                column: "ClienteId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Reservas_IdStatusReserva",
+                name: "IX_Reservas_StatusReservaId",
                 table: "Reservas",
-                column: "IdStatusReserva");
+                column: "StatusReservaId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Reservas_IdVaga",
+                name: "IX_Reservas_VagaId",
                 table: "Reservas",
-                column: "IdVaga");
+                column: "VagaId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Telefones_IdCliente",
+                name: "IX_Telefones_ClienteId",
                 table: "Telefones",
-                column: "IdCliente");
+                column: "ClienteId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Vagas_IdEstacionamento",
+                name: "IX_Vagas_EstacionamentoId",
                 table: "Vagas",
-                column: "IdEstacionamento");
+                column: "EstacionamentoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Vagas_IdStatusVaga",
+                name: "IX_Vagas_StatusVagaId",
                 table: "Vagas",
-                column: "IdStatusVaga");
+                column: "StatusVagaId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Vagas_IdTipoVeiculo",
+                name: "IX_Vagas_TipoVeiculoId",
                 table: "Vagas",
-                column: "IdTipoVeiculo");
+                column: "TipoVeiculoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Veiculos_IdCliente",
+                name: "IX_Veiculos_ClienteId",
                 table: "Veiculos",
-                column: "IdCliente");
+                column: "ClienteId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Veiculos_IdTipoVeiculo",
+                name: "IX_Veiculos_TipoVeiculoId",
                 table: "Veiculos",
-                column: "IdTipoVeiculo");
+                column: "TipoVeiculoId");
         }
 
         /// <inheritdoc />

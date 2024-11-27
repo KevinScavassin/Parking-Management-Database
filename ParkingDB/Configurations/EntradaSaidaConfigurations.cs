@@ -12,27 +12,24 @@ namespace ParkingDB.Configurations
                    .IsClustered(true);
 
             builder.Property(es => es.Id)
+                   .HasColumnName($"{nameof(EntradaSaida)}Id")
                    .IsRequired()
                    .ValueGeneratedOnAdd();
 
             builder.HasOne(es => es.Vaga) 
                    .WithMany() 
-                   .HasForeignKey("IdVaga") 
                    .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(es => es.Veiculo) 
                    .WithMany() 
-                   .HasForeignKey("IdVeiculo")
                    .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(es => es.Cliente) 
                    .WithMany() 
-                   .HasForeignKey("IdCliente")
                    .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(es => es.Pagamento) 
                    .WithMany() 
-                   .HasForeignKey("IdPagamento") // FK no banco
                    .OnDelete(DeleteBehavior.Restrict);
 
             builder.Property(es => es.DataHoraEntrada)
