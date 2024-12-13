@@ -16,6 +16,10 @@ namespace ParkingDB.Configurations
                    .IsRequired()
                    .ValueGeneratedOnAdd();
 
+            builder.Property(c => c.Nome)
+                   .IsRequired()
+                   .HasMaxLength(80);
+
             builder.Property(c => c.CPF)
                     .IsRequired(false)
                     .HasMaxLength(11);
