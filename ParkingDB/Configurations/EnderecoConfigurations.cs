@@ -16,10 +16,6 @@ namespace ParkingDB.Configurations
                    .IsRequired()
                    .ValueGeneratedOnAdd();
 
-            builder.HasOne(e => e.Estados) 
-                   .WithMany(eb => eb.Enderecos) 
-                   .OnDelete(DeleteBehavior.Restrict);
-
             builder.Property(e => e.Rua)
                    .IsRequired()
                    .HasMaxLength(100);
