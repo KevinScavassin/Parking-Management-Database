@@ -17,6 +17,7 @@ namespace ParkingDB.Migrations
                 {
                     ClienteId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Nome = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: false),
                     CPF = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: true),
                     CNPJ = table.Column<string>(type: "nvarchar(14)", maxLength: 14, nullable: true),
                     DataHoraInclusao = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
@@ -35,7 +36,8 @@ namespace ParkingDB.Migrations
                 name: "EstadosBrasileiros",
                 columns: table => new
                 {
-                    EstadosBrasileirosId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    EstadosBrasileirosId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     UF = table.Column<string>(type: "nvarchar(2)", maxLength: 2, nullable: false),
                     Nome = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     DataHoraInclusao = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
@@ -164,7 +166,7 @@ namespace ParkingDB.Migrations
                     Cidade = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     CEP = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),
                     Complemento = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    EstadosId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    EstadosId = table.Column<int>(type: "int", nullable: false),
                     DataHoraInclusao = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
                     UsuarioInclusao = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: false),
                     DataHoraAlteracao = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -180,7 +182,7 @@ namespace ParkingDB.Migrations
                         column: x => x.EstadosId,
                         principalTable: "EstadosBrasileiros",
                         principalColumn: "EstadosBrasileirosId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(

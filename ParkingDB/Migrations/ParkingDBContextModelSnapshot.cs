@@ -52,6 +52,11 @@ namespace ParkingDB.Migrations
                         .HasColumnType("bit")
                         .HasDefaultValue(true);
 
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
                     b.Property<string>("UsuarioAlteracao")
                         .IsRequired()
                         .HasMaxLength(80)
@@ -100,9 +105,8 @@ namespace ParkingDB.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETDATE()");
 
-                    b.Property<string>("EstadosId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("EstadosId")
+                        .HasColumnType("int");
 
                     b.Property<bool>("IsActive")
                         .ValueGeneratedOnAdd()
@@ -256,10 +260,12 @@ namespace ParkingDB.Migrations
 
             modelBuilder.Entity("ParkingDB.Entities.EstadosBrasileiros", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(450)")
+                        .HasColumnType("int")
                         .HasColumnName("EstadosBrasileirosId");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("DataHoraAlteracao")
                         .HasColumnType("datetime2");
@@ -756,9 +762,9 @@ namespace ParkingDB.Migrations
             modelBuilder.Entity("ParkingDB.Entities.Endereco", b =>
                 {
                     b.HasOne("ParkingDB.Entities.EstadosBrasileiros", "Estados")
-                        .WithMany("Enderecos")
+                        .WithMany()
                         .HasForeignKey("EstadosId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Estados");
@@ -917,11 +923,6 @@ namespace ParkingDB.Migrations
             modelBuilder.Entity("ParkingDB.Entities.Estacionamento", b =>
                 {
                     b.Navigation("Vagas");
-                });
-
-            modelBuilder.Entity("ParkingDB.Entities.EstadosBrasileiros", b =>
-                {
-                    b.Navigation("Enderecos");
                 });
 #pragma warning restore 612, 618
         }
