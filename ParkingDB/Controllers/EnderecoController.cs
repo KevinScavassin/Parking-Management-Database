@@ -33,7 +33,7 @@ public class EnderecoController : ControllerBase
         {
             Rua = enderecoRequest.Rua,
             Numero = enderecoRequest.Numero,
-            Complemento = enderecoRequest.Complemento,
+            Complemento = string.IsNullOrWhiteSpace(enderecoRequest.Complemento) ? null : enderecoRequest.Complemento,
             CEP = enderecoRequest.CEP,
             Cidade = enderecoRequest.Cidade,
             Estados = estadoExistente,

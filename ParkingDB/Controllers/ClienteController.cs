@@ -23,7 +23,6 @@ public class ClienteController : ControllerBase
             return BadRequest(ModelState);
         }
 
-        // Verificando se o nome é obrigatório
         if (string.IsNullOrWhiteSpace(clienteRequest.Nome))
         {
             ModelState.AddModelError("Nome", "O campo 'Nome' é obrigatório.");
